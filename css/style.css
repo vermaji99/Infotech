@@ -1125,7 +1125,7 @@ img {
     .hero-visual {
         max-width: 100%;
         aspect-ratio: 739.13 / 607;
-        max-height: min(380px, 70vw);
+        max-height: none;
     }
 
     .hero-heading h1 {
@@ -1158,6 +1158,7 @@ img {
     }
 
     .hero-cards {
+        position: absolute;
         left: 0;
         top: 0;
         width: 100%;
@@ -1165,20 +1166,43 @@ img {
     }
 
     .card-trusted {
-        width: 168px;
-        min-height: 88px;
-        padding: 12px 10px;
-        left: 2%;
+        width: 135px;
+        min-height: auto;
+        padding: 8px;
+        left: 0;
         top: auto;
-        bottom: 12%;
+        bottom: 5%;
     }
 
     .card-rating {
-        width: 158px;
-        min-height: 80px;
+        width: 125px;
+        min-height: auto;
+        padding: 10px 8px;
         left: auto;
-        right: 2%;
-        top: 20%;
+        right: 0;
+        top: 5%;
+    }
+
+    .card-score,
+    .card-stat {
+        font-size: 22px;
+    }
+
+    .card-label {
+        font-size: 12px;
+    }
+
+    .card-trusted-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .card-rating-row {
+        gap: 10px;
+    }
+
+    .card-rating-row img {
+        width: 60px;
     }
 
     .card-score {
@@ -1314,7 +1338,7 @@ img {
 
 @media (max-width: 480px) {
     .hero-visual {
-        max-height: min(360px, 68vw);
+        max-height: none;
     }
 
     .hero-cards {
@@ -1328,17 +1352,28 @@ img {
     }
 
     .card-trusted {
-        width: 155px;
+        width: 130px;
         left: 0;
-        bottom: 15%;
+        bottom: 5%;
         top: auto;
+        padding: 6px;
     }
 
     .card-rating {
-        width: 145px;
+        width: 120px;
         right: 0;
         left: auto;
-        top: 25%;
+        top: 5%;
+        padding: 8px 6px;
+    }
+
+    .card-score,
+    .card-stat {
+        font-size: 20px;
+    }
+
+    .card-label {
+        font-size: 11px;
     }
 
     .info-card {
