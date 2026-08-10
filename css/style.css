@@ -54,7 +54,6 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--text-black);
     background: var(--white);
-    overflow-x: hidden;
 }
 
 body.menu-open {
@@ -65,25 +64,14 @@ body.menu-open {
     width: 100%;
     max-width: var(--site-w);
     margin: 0 auto;
-    overflow-x: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 img {
     max-width: 100%;
     height: auto;
-}
-
-/* Figma-export assets — fixed size on large desktop only */
-@media (min-width: 1025px) {
-    img.figma-asset {
-        max-width: none;
-        flex-shrink: 0;
-    }
-}
-
-.hero-chevrons--desktop,
-.compliance-chevrons {
-    max-width: none;
+    display: block;
 }
 
 .text-primary {
@@ -108,6 +96,10 @@ img {
     justify-content: space-between;
     padding: 0 var(--pad-x);
     gap: 24px;
+    width: 100%;
+    max-width: var(--site-w);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .logo {
@@ -117,6 +109,12 @@ img {
     text-decoration: none;
     color: inherit;
     height: 58px;
+    flex-shrink: 0;
+}
+
+.logo img {
+    width: 46px;
+    height: 50px;
     flex-shrink: 0;
 }
 
@@ -131,6 +129,9 @@ img {
     align-items: center;
     gap: 40px;
     margin: 0 auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    flex-wrap: nowrap;
 }
 
 .nav-link {
@@ -140,6 +141,7 @@ img {
     text-decoration: none;
     white-space: nowrap;
     transition: color var(--transition-ui);
+    flex-shrink: 0;
 }
 
 .nav-link:hover {
@@ -154,26 +156,29 @@ img {
     display: none;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 5px;
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
     border: none;
     background: none;
     cursor: pointer;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .menu-toggle-bar {
     display: block;
-    width: 25px;
-    height: 3px;
+    width: 24px;
+    height: 2.5px;
     background: var(--primary);
     border-radius: 2px;
     transition: transform 0.25s, opacity 0.25s;
 }
 
 .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: translateY(7.5px) rotate(45deg);
 }
 
 .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) {
@@ -181,7 +186,7 @@ img {
 }
 
 .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-7.5px) rotate(-45deg);
 }
 
 .btn {
@@ -204,7 +209,6 @@ img {
         box-shadow var(--transition-ui);
 }
 
-/* Figma hover: solid blue → white + blue border */
 .btn-primary {
     background: var(--primary);
     color: var(--white);
@@ -223,7 +227,6 @@ img {
     filter: brightness(0) saturate(100%) invert(28%) sepia(52%) saturate(2847%) hue-rotate(213deg) brightness(92%) contrast(89%);
 }
 
-/* Figma hover: outline → solid blue */
 .btn-outline {
     background: var(--white);
     color: var(--primary);
@@ -237,19 +240,30 @@ img {
     border-color: var(--primary);
 }
 
+/* ===== ISSUE 1 FIX: Navbar button icon sizing ===== */
 .btn-nav {
-    padding: 14px 28px;
+    padding: 13px 24px;
+    height: 48px;
     flex-shrink: 0;
+    gap: 10px;
+}
+
+.btn-nav img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+    object-fit: contain;
 }
 
 .btn-get-started {
     width: min(213px, 100%);
-    height: 46px;
+    height: 48px;
     padding: 14px 22px;
 }
 
 .btn-consultation {
-    height: 46px;
+    height: 48px;
     padding: 14px 22px;
 }
 
@@ -272,6 +286,7 @@ img {
     height: 34.17px;
     z-index: 3;
     pointer-events: none;
+    max-width: none;
 }
 
 /* Tablet/mobile: below hero CTAs (in content flow) */
@@ -303,7 +318,7 @@ img {
     grid-template-columns: minmax(0, 1fr) minmax(0, min(739.13px, 52%));
     column-gap: clamp(16px, 2vw, 32px);
     justify-content: space-between;
-    padding: clamp(120px, 12vw, 180px) var(--pad-x) 80px clamp(24px, 5vw, 72px);
+    padding: clamp(120px, 12vw, 180px) var(--pad-x) 80px var(--pad-x);
     min-height: 829px;
     align-items: start;
     width: 100%;
@@ -312,7 +327,7 @@ img {
 
 .hero-content {
     width: 100%;
-    max-width: 606px;
+    max-width: 570px;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -321,7 +336,7 @@ img {
 
 .hero-heading {
     width: 100%;
-    max-width: 620px;
+    max-width: 570px;
     min-width: 0;
 }
 
@@ -333,9 +348,10 @@ img {
     max-width: 100%;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    text-align: left;
 }
 
-/* Underline under "Compliance" only — Figma layout_Q1O7JZ y:154 */
+/* Underline under "Compliance" only */
 .hero-highlight {
     position: relative;
     display: inline-block;
@@ -354,31 +370,48 @@ img {
     pointer-events: none;
 }
 
+/* ===== ISSUE 3 FIX: Hero paragraph width for correct line breaks ===== */
 .hero-desc {
-    max-width: 100%;
+    max-width: 540px;
     width: 100%;
+    font-size: var(--body-size);
+    line-height: 32px;
+    color: var(--text-body);
+    text-align: left;
 }
 
 .hero-checklist {
     list-style: none;
     width: 100%;
-    max-width: 466px;
+    max-width: 520px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .hero-checklist li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
     font-size: var(--body-size);
     font-weight: var(--body-weight);
-    line-height: var(--body-lh);
+    line-height: 28px;
+    padding: 4px 0;
+    width: 100%;
+    text-align: left;
 }
 
 .hero-checklist img {
     flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+/* ===== ISSUE 9 FIX: List item text wrapped in span now becomes proper flex child ===== */
+.hero-checklist li span {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .hero-actions {
@@ -388,7 +421,7 @@ img {
     flex-wrap: wrap;
 }
 
-/* Banner Image — Figma 41:3872: frame 739.13×607, image 739.13×538.79 @ y:68.21 */
+/* ===== ISSUE 2, 10 FIX: Hero visual + floating cards responsive ===== */
 .hero-visual {
     position: relative;
     width: 100%;
@@ -397,6 +430,7 @@ img {
     height: auto;
     aspect-ratio: 739.13 / 607;
     flex-shrink: 1;
+    overflow: visible;
 }
 
 .hero-banner {
@@ -407,36 +441,41 @@ img {
     height: 88.76%;
     max-width: 100%;
     object-fit: contain;
+    object-position: center center;
     pointer-events: none;
 }
 
+/* Floating cards container — responsive sizing based on container */
 .hero-cards {
     position: absolute;
-    left: 52px;
-    top: 236px;
-    width: 558px;
-    height: 238px;
+    left: 7%;
+    top: 39%;
+    width: 86%;
+    height: 42%;
+    max-width: 100%;
+    pointer-events: none;
 }
 
 .card-trusted {
     position: absolute;
     left: 0;
-    top: 117px;
-    width: 255px;
-    height: 121px;
+    bottom: 0;
+    width: clamp(200px, 46%, 255px);
+    min-height: 100px;
+    height: auto;
     background: var(--white);
     border-radius: 10px;
     box-shadow: var(--shadow-card);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    padding: 30px 20px;
+    gap: 16px;
+    padding: 20px 18px;
 }
 
 .card-trusted-icon {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     flex-shrink: 0;
     border-radius: 10px;
     overflow: hidden;
@@ -464,7 +503,7 @@ img {
 }
 
 .card-stat {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 800;
     line-height: 1.1;
     color: var(--primary);
@@ -472,10 +511,11 @@ img {
 
 .card-rating {
     position: absolute;
-    left: 306px;
+    right: 0;
     top: 0;
-    width: 252px;
-    height: 105px;
+    width: clamp(190px, 45%, 252px);
+    min-height: 90px;
+    height: auto;
     background: rgba(255, 255, 255, 0.79);
     backdrop-filter: blur(91px);
     -webkit-backdrop-filter: blur(91px);
@@ -485,22 +525,27 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 11px;
-    padding: 20px 15px;
+    gap: 8px;
+    padding: 18px 14px;
 }
 
 .card-rating-row {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
 }
 
 .card-score {
     font-family: 'Inter', sans-serif;
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 600;
     line-height: 1;
     color: var(--primary);
+}
+
+.card-rating-row img {
+    width: clamp(72px, 10vw, 102px);
+    height: auto;
 }
 
 /* ========== COMPLIANCE — Frame 1159 (2×2 grid) ========== */
@@ -510,7 +555,7 @@ img {
     max-width: 100%;
     padding: 50px var(--pad-x) 100px;
     background: var(--white);
-    overflow-x: hidden;
+    overflow: visible;
 }
 
 .compliance-inner {
@@ -535,21 +580,26 @@ img {
 
 .compliance-heading-block {
     position: relative;
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
-    max-width: 580px;
-    padding-right: clamp(48px, 10vw, 100px);
+    width: 50%;
+    max-width: 560px;
+    padding-right: 110px;
 }
 
+/* ===== ISSUE 4 FIX: Title + desc alignment + colors ===== */
 .compliance-title {
     font-size: var(--h2-size);
     font-weight: var(--h2-weight);
     line-height: var(--h2-lh);
     max-width: 100%;
     overflow-wrap: break-word;
+    color: var(--text-black);
+    text-align: left;
+    letter-spacing: 0;
 }
 
-/* Squiggle — desktop: beside title | tablet/mobile: beside scene (41:5402 / 41:4951) */
+/* Squiggle — desktop: right side of title block */
 .compliance-squiggle-wrap {
     position: absolute;
     pointer-events: none;
@@ -558,9 +608,9 @@ img {
 
 .compliance-squiggle-wrap--title {
     right: 0;
-    top: clamp(36px, 6vw, 91px);
-    width: clamp(80px, 11vw, 132.23px);
-    height: clamp(82px, 11.5vw, 135.07px);
+    top: 91px;
+    width: 132.23px;
+    height: 135.07px;
 }
 
 .compliance-squiggle-wrap--scene {
@@ -571,8 +621,8 @@ img {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: clamp(60px, 8vw, 102.39px);
-    height: clamp(52px, 7vw, 88.67px);
+    width: 102.39px;
+    height: 88.67px;
     max-width: 100%;
     transform: translate(-50%, -50%) rotate(-53.41deg);
     transform-origin: center center;
@@ -583,7 +633,12 @@ img {
     flex: 1;
     min-width: 0;
     margin: 0;
-    padding-top: 8px;
+    padding-top: 10px;
+    max-width: 620px;
+    color: var(--text-body);
+    line-height: 32px;
+    font-size: var(--body-size);
+    text-align: left;
 }
 
 /* Row 2: illustration | cards — gap 52 */
@@ -622,6 +677,7 @@ img {
     flex-direction: column;
     justify-content: center;
     gap: 40px;
+    max-width: 620px;
 }
 
 /* Chevrons — Figma abs x:0 y:803 in Frame 1162 */
@@ -632,13 +688,15 @@ img {
     width: 137.33px;
     height: 34.17px;
     pointer-events: none;
+    max-width: none;
 }
 
+/* ===== ISSUE 5 FIX: Cards icons + text alignment ===== */
 .info-card {
     display: flex;
     align-items: flex-start;
-    gap: 26px;
-    padding: 20px;
+    gap: 24px;
+    padding: 22px 24px;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 8px;
@@ -648,13 +706,14 @@ img {
         padding var(--transition-ui),
         box-shadow var(--transition-ui);
     cursor: default;
+    width: 100%;
+    max-width: 100%;
 }
 
-/* Figma hover: thin grey border → thicker blue border */
 .info-card:hover,
 .info-card:focus-within {
     border: 2px solid var(--card-border-hover);
-    padding: 19px;
+    padding: 21px 23px;
     box-shadow: 0 0 0 1px rgba(67, 86, 214, 0.08);
 }
 
@@ -663,17 +722,29 @@ img {
     height: 36px;
     flex-shrink: 0;
     object-fit: contain;
+    margin-top: 3px;
+}
+
+.info-card-copy {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
 }
 
 .info-card-copy h3 {
     font-size: var(--large-title-size);
     font-weight: var(--large-title-weight);
     line-height: var(--large-title-lh);
-    margin-bottom: 11px;
+    margin-bottom: 8px;
+    color: var(--text-black);
+    text-align: left;
 }
 
 .info-card-copy p {
     margin: 0;
+    text-align: left;
+    line-height: 28px;
+    font-size: var(--body-size);
 }
 
 /* ========== TABLET / MOBILE MENU — 41:6825 / 3:1159 ========== */
@@ -736,17 +807,26 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     border: none;
     background: none;
     color: var(--primary);
     cursor: pointer;
+    border-radius: 8px;
+    padding: 6px;
     transition: opacity var(--transition-ui);
+    flex-shrink: 0;
 }
 
 .menu-close:hover {
     opacity: 0.75;
+}
+
+.menu-close svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .menu-nav {
@@ -807,21 +887,198 @@ img {
     flex-shrink: 0;
 }
 
-/* ========== TABLET — 768px (Figma 41:5402) ========== */
-@media (max-width: 1024px) {
+/* ===== ISSUE 10 FIX: Mid-desktop (1025–1280px) overflow + sizing ===== */
+/* Root cause: hero-cards fixed widths + hero visual sizing. Fluid sizing below. */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    :root {
+        --pad-x: 48px;
+        --body-size: 17px;
+        --h1-size: 56px;
+        --h1-lh: 76px;
+        --h2-size: 44px;
+        --h2-lh: 62px;
+    }
+
+    .nav-menu {
+        gap: 24px;
+    }
+
+    .nav-link {
+        font-size: 16px;
+    }
+
+    .btn-nav {
+        padding: 12px 20px;
+        height: 44px;
+        font-size: 16px;
+        gap: 8px;
+    }
+
+    .btn-nav img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .navbar {
+        gap: 16px;
+    }
+
+    .logo {
+        gap: 12px;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 44px;
+    }
+
+    .logo-text {
+        font-size: 36px;
+    }
+
+    .hero-grid {
+        padding: 130px var(--pad-x) 72px var(--pad-x);
+        column-gap: 20px;
+    }
+
+    .hero-content {
+        max-width: 500px;
+    }
+
+    .hero-heading {
+        max-width: 500px;
+    }
+
+    .hero-desc {
+        max-width: 480px;
+    }
+
+    .hero-visual {
+        max-width: 100%;
+    }
+
+    /* Floating cards fluid scale */
+    .hero-cards {
+        left: 6%;
+        top: 38%;
+        width: 88%;
+        height: 44%;
+    }
+
+    .card-trusted {
+        width: 45%;
+        min-height: 90px;
+        padding: 16px 14px;
+        gap: 14px;
+    }
+
+    .card-trusted-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .card-trusted-icon img {
+        padding: 6px;
+    }
+
+    .card-stat {
+        font-size: 30px;
+    }
+
+    .card-label {
+        font-size: 18px;
+    }
+
+    .card-rating {
+        width: 44%;
+        min-height: 84px;
+        padding: 16px 12px;
+        gap: 6px;
+    }
+
+    .card-rating-row {
+        gap: 12px;
+    }
+
+    .card-score {
+        font-size: 30px;
+    }
+
+    .compliance-heading-block {
+        padding-right: 80px;
+    }
+
+    .compliance-squiggle-wrap--title {
+        top: 70px;
+        width: 110px;
+        height: 112px;
+    }
+
+    .compliance-squiggle-wrap--title .compliance-squiggle {
+        width: 85px;
+        height: 74px;
+    }
+
+    .info-card {
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .info-card:hover,
+    .info-card:focus-within {
+        padding: 19px;
+    }
+
+    .info-card-icon {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* ===== ISSUE 6,7,8 FIX: TABLET — 768px to 1024px (Figma 41:5402) ===== */
+/* CRITICAL: Tablet range now STARTS at 768px, mobile only below 768px (not ≤768) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    :root {
+        --pad-x: 48px;
+        --h1-size: 54px;
+        --h1-lh: 72px;
+        --h2-size: 44px;
+        --h2-lh: 60px;
+        --large-title-size: 24px;
+        --large-title-lh: 32px;
+        --title-size: 20px;
+        --body-size: 17px;
+        --body-lh: 30px;
+    }
+
     .nav-menu {
         display: none;
     }
 
     .menu-toggle {
         display: flex;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
     }
 
-    /* Tablet navbar: Contact Us + menu */
+    .menu-toggle-bar {
+        width: 24px;
+        height: 2.5px;
+    }
+
+    /* Tablet navbar: Logo | Contact Us | menu */
     .btn-nav {
         display: inline-flex;
         padding: 12px 20px;
         font-size: 16px;
+        height: 44px;
+        gap: 8px;
+    }
+
+    .btn-nav img {
+        width: 20px;
+        height: 20px;
     }
 
     .navbar {
@@ -830,18 +1087,6 @@ img {
         min-height: 90px;
         padding: 20px var(--pad-x);
         gap: 16px;
-    }
-
-    :root {
-        --pad-x: 48px;
-        /* Tablet typography — 41:3724 tablet */
-        --h1-size: 54px;
-        --h1-lh: 75px;
-        --h2-size: 46px;
-        --h2-lh: 60px;
-        --large-title-size: 24px;
-        --large-title-lh: 32px;
-        --title-size: 20px;
     }
 
     .hero {
@@ -853,6 +1098,7 @@ img {
         display: none;
     }
 
+    /* ===== ISSUE 7 FIX: 768px chevrons + paragraph + list + button ===== */
     .hero-chevrons-inline {
         display: block;
         align-self: flex-start;
@@ -863,8 +1109,8 @@ img {
     .hero-grid {
         display: flex;
         flex-direction: column;
-        padding: 16px var(--pad-x) 48px;
-        gap: 36px;
+        padding: 24px var(--pad-x) 56px;
+        gap: 40px;
         min-height: auto;
     }
 
@@ -873,67 +1119,82 @@ img {
         order: 1;
         width: 100%;
         max-width: 680px;
-        margin: 0 auto;
+        margin: 0;
         align-items: flex-start;
     }
 
     .hero-heading {
         width: 100%;
-        text-align: center;
+        max-width: 100%;
+        text-align: left;
     }
 
     .hero-heading h1 {
         letter-spacing: -0.5px;
-        text-align: center;
-        margin: 0 auto;
+        text-align: left;
+        margin: 0;
     }
 
     .hero-desc {
         width: 100%;
-        text-align: center;
+        max-width: 660px;
+        text-align: left;
+        line-height: 30px;
     }
 
     .hero-underline {
         width: min(320px, 72vw);
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .hero-checklist {
         width: 100%;
-        max-width: 520px;
+        max-width: 560px;
         margin: 0;
         align-self: flex-start;
+        gap: 10px;
     }
 
     .hero-checklist li {
         justify-content: flex-start;
         text-align: left;
+        align-items: flex-start;
+        line-height: 28px;
+    }
+
+    .hero-checklist img {
+        margin-top: 2px;
+        width: 22px;
+        height: 22px;
     }
 
     .hero-actions {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
-        align-self: center;
+        justify-content: flex-start;
+        align-self: flex-start;
         width: auto;
         max-width: 100%;
         gap: 20px;
-        margin: 8px auto 0;
+        margin: 8px 0 0;
     }
 
     .btn-get-started,
     .btn-consultation {
         width: auto;
         min-width: 180px;
+        height: 46px;
+        padding: 12px 20px;
         flex: 0 1 auto;
+        font-size: 16px;
     }
 
     .hero-visual {
         order: 2;
         width: 100%;
         max-width: min(620px, 100%);
-        margin: 0 auto;
+        margin: 0;
         aspect-ratio: 739.13 / 607;
     }
 
@@ -951,21 +1212,21 @@ img {
         left: 5%;
         top: 38%;
         width: 90%;
-        max-width: calc(100% - 10%);
+        max-width: 90%;
         height: 44%;
     }
 
     .card-trusted {
-        width: 210px;
-        height: auto;
-        min-height: 100px;
-        padding: 14px 12px;
+        width: 45%;
+        min-height: 90px;
+        padding: 14px 14px;
+        gap: 14px;
     }
 
     .card-rating {
-        width: 200px;
-        height: auto;
-        min-height: 90px;
+        width: 44%;
+        min-height: 84px;
+        padding: 14px 12px;
     }
 
     .card-score {
@@ -973,35 +1234,45 @@ img {
     }
 
     .card-stat {
-        font-size: 28px;
+        font-size: 30px;
+    }
+
+    .card-label {
+        font-size: 18px;
+    }
+
+    .card-trusted-icon {
+        width: 60px;
+        height: 60px;
     }
 
     .card-trusted-icon img {
-        width: 40px;
-        height: 40px;
+        width: 100%;
+        height: 100%;
+        padding: 6px;
     }
 
-    /* Compliance — centered stack, squiggle on illustration */
+    /* Compliance — centered stack, squiggle on scene */
     .compliance {
-        padding: 32px var(--pad-x) 72px;
+        padding: 36px var(--pad-x) 72px;
     }
 
     .compliance-inner {
-        gap: 28px;
+        gap: 32px;
     }
 
     .compliance-row-head,
     .compliance-row-body {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         gap: 28px;
     }
 
     .compliance-heading-block,
     .compliance-desc {
-        max-width: 640px;
+        max-width: 680px;
         width: 100%;
-        text-align: center;
+        text-align: left;
     }
 
     .compliance-heading-block {
@@ -1009,15 +1280,17 @@ img {
     }
 
     .compliance-title {
-        text-align: center;
-        margin: 0 auto;
+        text-align: left;
+        margin: 0;
     }
 
     .compliance-desc {
         padding-top: 0;
-        text-align: center;
+        text-align: left;
+        line-height: 30px;
     }
 
+    /* ===== ISSUE 8 FIX: Decorative elements at tablet ===== */
     .compliance-squiggle-wrap--title {
         display: none;
     }
@@ -1041,7 +1314,7 @@ img {
         flex: none;
         width: 100%;
         max-width: min(520px, 100%);
-        margin: 0 auto;
+        margin: 0;
     }
 
     .compliance-scene {
@@ -1052,8 +1325,33 @@ img {
 
     .compliance-cards {
         width: 100%;
-        max-width: 640px;
+        max-width: 680px;
         gap: 24px;
+    }
+
+    .info-card {
+        padding: 20px 22px;
+        gap: 20px;
+    }
+
+    .info-card:hover,
+    .info-card:focus-within {
+        padding: 19px 21px;
+    }
+
+    .info-card-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .info-card-copy h3 {
+        text-align: left;
+        margin-bottom: 8px;
+    }
+
+    .info-card-copy p {
+        text-align: left;
+        line-height: 28px;
     }
 
     .compliance-chevrons {
@@ -1067,8 +1365,9 @@ img {
     }
 }
 
-/* ========== MOBILE — 375px (Figma 41:4951 / menu 3:1159) ========== */
-@media (max-width: 768px) {
+/* ===== ISSUE 6,8,9 FIX: MOBILE — ≤767px (Figma 41:4951 / menu 3:1159) ===== */
+/* NOW 768px is tablet, mobile is below 768px only */
+@media (max-width: 767px) {
     :root {
         --pad-x: 16px;
         /* Mobile typography */
@@ -1079,6 +1378,8 @@ img {
         --large-title-size: 22px;
         --large-title-lh: 32px;
         --title-size: 19px;
+        --body-size: 16px;
+        --body-lh: 28px;
     }
 
     .nav-menu,
@@ -1086,9 +1387,37 @@ img {
         display: none;
     }
 
+    .menu-toggle {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
+    .menu-toggle-bar {
+        width: 22px;
+        height: 2.5px;
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
     .navbar {
         min-height: 72px;
-        padding: 16px var(--pad-x);
+        padding: 14px var(--pad-x);
+        gap: 12px;
+        position: relative;
+        height: auto;
+    }
+
+    .logo {
+        gap: 10px;
+        height: auto;
     }
 
     .logo img {
@@ -1097,23 +1426,39 @@ img {
     }
 
     .logo-text {
-        font-size: 33px;
+        font-size: 30px;
     }
 
+    .hero {
+        min-height: auto;
+        padding-bottom: 24px;
+    }
+
+    .hero-chevrons--desktop {
+        display: none;
+    }
+
+    /* ===== ISSUE 8 FIX: Mobile decorative elements ===== */
     .hero-chevrons-inline {
+        display: block;
         align-self: center;
-        width: 100px;
+        width: 96px;
         margin-top: 8px;
     }
 
     .hero-grid {
-        padding: 8px var(--pad-x) 36px;
+        display: flex;
+        flex-direction: column;
+        padding: 12px var(--pad-x) 36px;
         gap: 28px;
+        min-height: auto;
     }
 
     .hero-content {
+        order: 1;
         align-items: center;
         max-width: 100%;
+        width: 100%;
     }
 
     .hero-heading,
@@ -1122,10 +1467,8 @@ img {
         text-align: center;
     }
 
-    .hero-visual {
+    .hero-heading {
         max-width: 100%;
-        aspect-ratio: 739.13 / 607;
-        max-height: none;
     }
 
     .hero-heading h1 {
@@ -1139,22 +1482,63 @@ img {
         margin-top: -4px;
     }
 
-    .hero-checklist {
-        align-self: center;
+    .hero-desc {
         max-width: 100%;
+        line-height: 28px;
+    }
+
+    /* ===== ISSUE 9 FIX: 375px checklist robust alignment ===== */
+    .hero-checklist {
+        align-self: stretch;
+        max-width: 100%;
+        width: 100%;
+        gap: 10px;
     }
 
     .hero-checklist li {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
         font-size: 16px;
-        line-height: 26px;
+        line-height: 24px;
         gap: 12px;
         word-break: break-word;
-        justify-content: flex-start;
         text-align: left;
-        width: fit-content;
+        width: 100%;
         max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0;
+        padding: 4px 0;
+    }
+
+    .hero-checklist img {
+        flex: 0 0 20px;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+    }
+
+    .hero-checklist li span {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: block;
+    }
+
+    .hero-visual {
+        order: 2;
+        max-width: 100%;
+        width: 100%;
+        aspect-ratio: 739.13 / 607;
+        max-height: none;
+    }
+
+    .hero-banner {
+        position: absolute;
+        left: 0;
+        top: 11.24%;
+        width: 100%;
+        height: 88.76%;
+        max-width: 100%;
+        object-fit: contain;
     }
 
     .hero-cards {
@@ -1163,46 +1547,25 @@ img {
         top: 0;
         width: 100%;
         height: 100%;
+        max-width: 100%;
     }
 
     .card-trusted {
-        width: 135px;
+        width: 42%;
         min-height: auto;
-        padding: 8px;
+        padding: 8px 10px;
         left: 0;
-        top: auto;
         bottom: 5%;
-    }
-
-    .card-rating {
-        width: 125px;
-        min-height: auto;
-        padding: 10px 8px;
-        left: auto;
-        right: 0;
-        top: 5%;
-    }
-
-    .card-score,
-    .card-stat {
-        font-size: 22px;
-    }
-
-    .card-label {
-        font-size: 12px;
-    }
-
-    .card-trusted-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .card-rating-row {
         gap: 10px;
     }
 
-    .card-rating-row img {
-        width: 60px;
+    .card-rating {
+        width: 40%;
+        min-height: auto;
+        padding: 10px 8px;
+        right: 0;
+        top: 5%;
+        gap: 6px;
     }
 
     .card-score {
@@ -1214,16 +1577,26 @@ img {
     }
 
     .card-label {
-        font-size: 14px;
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .card-trusted-icon {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
     }
 
     .card-trusted-icon img {
-        width: 32px;
-        height: 32px;
+        padding: 4px;
+    }
+
+    .card-rating-row {
+        gap: 10px;
     }
 
     .card-rating-row img {
-        width: 80px;
+        width: 72px;
         height: auto;
     }
 
@@ -1244,50 +1617,73 @@ img {
         max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
+        height: 48px;
     }
 
+    /* ===== ISSUE 4,8 FIX: Compliance mobile ===== */
     .compliance {
-        padding: 28px var(--pad-x) 64px;
+        padding: 24px var(--pad-x) 60px;
     }
 
     .compliance-inner {
         gap: 20px;
     }
 
-    .compliance-row-head {
-        gap: 16px;
-    }
-
+    .compliance-row-head,
     .compliance-row-body {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 20px;
     }
 
     .compliance-heading-block,
     .compliance-desc {
         max-width: 100%;
+        width: 100%;
+        text-align: left;
+    }
+
+    .compliance-heading-block {
+        padding-right: 0;
+    }
+
+    .compliance-title {
+        text-align: left;
+        margin: 0;
+    }
+
+    .compliance-desc {
+        padding-top: 0;
+        line-height: 28px;
     }
 
     .compliance-visual {
-        max-width: min(360px, 100%);
+        max-width: min(340px, 100%);
+        margin: 0;
     }
 
-    /* Mobile: squiggle top-right of illustration — 41:4951 */
+    /* Mobile: squiggle top-right of scene */
+    .compliance-squiggle-wrap--title {
+        display: none;
+    }
+
     .compliance-squiggle-wrap--scene {
+        display: block;
         right: 2%;
         top: 6%;
         transform: none;
-        width: 64px;
-        height: 66px;
+        width: 60px;
+        height: 62px;
     }
 
     .compliance-squiggle-wrap--scene .compliance-squiggle {
-        width: 52px;
-        height: 45px;
+        width: 48px;
+        height: 42px;
         transform: translate(-50%, -50%) rotate(-53.41deg);
     }
 
     .compliance-chevrons {
-        width: 96px;
+        width: 92px;
         left: var(--pad-x);
         bottom: 24px;
     }
@@ -1295,22 +1691,37 @@ img {
     .compliance-cards {
         gap: 16px;
         max-width: 100%;
+        width: 100%;
     }
 
     .info-card {
         gap: 14px;
-        padding: 16px;
+        padding: 16px 18px;
         width: 100%;
     }
 
     .info-card:hover,
     .info-card:focus-within {
-        padding: 15px;
+        padding: 15px 17px;
     }
 
     .info-card-icon {
         width: 32px;
         height: 32px;
+        margin-top: 2px;
+    }
+
+    .info-card-copy h3 {
+        font-size: 20px;
+        line-height: 28px;
+        margin-bottom: 8px;
+        text-align: left;
+    }
+
+    .info-card-copy p {
+        font-size: 15px;
+        line-height: 26px;
+        text-align: left;
     }
 
     /* Mobile drawer — 327px */
@@ -1319,51 +1730,55 @@ img {
         padding: 10px 12px 24px;
     }
 
+    .menu-close {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+    }
+
+    .menu-logo {
+        font-size: 30px;
+        gap: 8px;
+    }
+
+    .menu-logo img {
+        width: 28px;
+        height: 30px;
+    }
+
     .menu-nav {
         gap: 32px;
-        padding: 40px 8px 20px;
+        padding: 36px 8px 20px;
     }
 
     .menu-nav-link {
         max-width: 100%;
         gap: 20px;
         font-size: 16px;
+        line-height: 26px;
+    }
+
+    .menu-nav-icon {
+        width: 22px;
+        height: 22px;
     }
 
     .menu-cta {
         margin: auto 8px 8px;
         width: calc(100% - 16px);
+        height: 46px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-visual {
-        max-height: none;
-    }
-
-    .hero-cards {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        width: 100%;
-        height: 100%;
-        top: 0;
-    }
-
     .card-trusted {
-        width: 130px;
-        left: 0;
-        bottom: 5%;
-        top: auto;
-        padding: 6px;
+        width: 40%;
+        padding: 8px;
+        gap: 8px;
     }
 
     .card-rating {
-        width: 120px;
-        right: 0;
-        left: auto;
-        top: 5%;
+        width: 38%;
         padding: 8px 6px;
     }
 
@@ -1390,10 +1805,16 @@ img {
     .compliance-squiggle-wrap--scene {
         display: none;
     }
+
+    /* Figma assets: keep responsive to prevent overflow (ISSUE 10 root cause fix) */
+    img.figma-asset {
+        max-width: 100%;
+        flex-shrink: 1;
+    }
 }
 
 /* Large desktop — squiggle beside title (41:4283) */
-@media (min-width: 1200px) {
+@media (min-width: 1281px) {
     .compliance-heading-block {
         padding-right: 110px;
     }
@@ -1408,6 +1829,40 @@ img {
     .compliance-squiggle-wrap--title .compliance-squiggle {
         width: 102.39px;
         height: 88.67px;
+    }
+
+    /* Large desktop hero stat sizes back to Figma exact */
+    .card-stat {
+        font-size: 40px;
+    }
+
+    .card-score {
+        font-size: 40px;
+    }
+
+    .card-trusted-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card-trusted {
+        width: 255px;
+        padding: 24px 20px;
+        gap: 20px;
+    }
+
+    .card-rating {
+        width: 252px;
+        padding: 20px 15px;
+        gap: 11px;
+    }
+
+    .card-label {
+        font-size: 20px;
+    }
+
+    .card-rating-row img {
+        width: 102px;
     }
 }
 
